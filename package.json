@@ -1,6 +1,6 @@
 {
   "name": "startmining-mcp",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "MCP server for Bitcoin mining data - hashprice, difficulty, profitability calculations",
   "main": "dist/index.js",
   "bin": {
@@ -21,7 +21,11 @@
     "ai",
     "claude"
   ],
-  "author": "Startmining <hello@startmining.io>",
+  "author": {
+    "name": "Thibaut Spanier",
+    "email": "thibaut@startmining.io",
+    "url": "https://startmining.io"
+  },
   "license": "MIT",
   "homepage": "https://pro.startmining.io",
   "repository": {
