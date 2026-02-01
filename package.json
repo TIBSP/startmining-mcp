@@ -30,7 +30,7 @@
   "homepage": "https://pro.startmining.io",
   "repository": {
     "type": "git",
-    "url": "https://github.com/startminingio/mcp-server"
+    "url": "https://github.com/TIBSP/startmining-mcp"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.0.0"

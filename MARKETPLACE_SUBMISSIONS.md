@@ -70,7 +70,7 @@ npx startmining-mcp
 
 **PR Addition** (in Finance section):
 ```markdown
-- [startmining-mcp](https://github.com/startminingio/mcp-server) - Bitcoin mining data: hashprice, difficulty, profitability calculations, halving info. Real-time data from professional mining infrastructure.
+- [startmining-mcp](https://github.com/TIBSP/startmining-mcp) - Bitcoin mining data: hashprice, difficulty, profitability calculations, halving info. Real-time data from professional mining infrastructure.
 ```
 
 ---
@@ -89,7 +89,7 @@ npx startmining-mcp
 ### Startmining MCP
 Bitcoin mining data and profitability calculations. Real-time hashprice, difficulty, network stats, and ASIC ROI calculator.
 - npm: `startmining-mcp`
-- GitHub: https://github.com/startminingio/mcp-server
+- GitHub: https://github.com/TIBSP/startmining-mcp
 ```
 
 ---
@@ -110,7 +110,7 @@ Bitcoin mining data and profitability calculations. Real-time hashprice, difficu
 
 ## Next Steps
 
-1. **Create GitHub repo** `startminingio/mcp-server` (needs Thibaut)
+1. **Create GitHub repo** `TIBSP/startmining-mcp` (needs Thibaut)
 2. Push code + add topics
 3. Submit to mcp.so
 4. Submit to Smithery
