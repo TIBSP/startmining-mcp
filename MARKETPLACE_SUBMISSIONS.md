@@ -98,12 +98,12 @@ Bitcoin mining data and profitability calculations. Real-time hashprice, difficu
 
 | Platform | Status | Action Required |
 |----------|--------|-----------------|
-| npm | ✅ Published v1.0.1 | Done |
-| GitHub | ❌ Not created | Create public repo |
-| GitHub Topics | ⏳ Pending | After repo creation |
-| mcp.so | ⏳ Pending | Submit form |
-| Smithery | ⏳ Pending | Submit form |
-| Awesome MCP Servers | ⏳ Pending | PR after repo |
+| npm | ✅ Published v1.0.3 | Done |
+| GitHub | ✅ Created | https://github.com/TIBSP/startmining-mcp |
+| GitHub Topics | ✅ Added | mcp, bitcoin, bitcoin-mining, etc. |
+| mcp.so | ⏳ Needs login | Thibaut to submit manually |
+| Smithery | ⏳ Needs login | Thibaut to submit manually |
+| Awesome MCP Servers | ✅ PR submitted | https://github.com/punkpeye/awesome-mcp-servers/pull/1789 |
 | Anthropic Official | ⏳ Later | After traction |
 
 ---

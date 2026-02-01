@@ -1,6 +1,6 @@
 {
   "name": "startmining-mcp",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "MCP server for Bitcoin mining data - hashprice, difficulty, profitability calculations",
   "main": "dist/index.js",
   "bin": {
