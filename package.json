@@ -1,0 +1,39 @@
+{
+  "name": "startmining-mcp",
+  "version": "1.0.1",
+  "description": "MCP server for Bitcoin mining data - hashprice, difficulty, profitability calculations",
+  "main": "dist/index.js",
+  "bin": {
+    "startmining-mcp": "./dist/index.js"
+  },
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "tsx src/index.ts"
+  },
+  "keywords": [
+    "mcp",
+    "bitcoin",
+    "mining",
+    "hashprice",
+    "cryptocurrency",
+    "ai",
+    "claude"
+  ],
+  "author": "Startmining <hello@startmining.io>",
+  "license": "MIT",
+  "homepage": "https://pro.startmining.io",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/startminingio/mcp-server"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "tsx": "^4.0.0",
+    "typescript": "^5.0.0"
+  }
+}
