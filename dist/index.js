@@ -6,6 +6,20 @@ const API_BASE = process.env.STARTMINING_API_URL || "https://mining-api.startmin
 // Default public API key for MCP (rate limited, read-only)
 const DEFAULT_PUBLIC_KEY = "sm_mcp_public_2026_xKj8mNpL4qRsT9wV2yHz";
 const API_KEY = process.env.STARTMINING_API_KEY || DEFAULT_PUBLIC_KEY;
+const MCP_VERSION = "1.0.4";
+// Analytics tracking (fire-and-forget, non-blocking)
+function trackToolCall(toolName) {
+    const payload = {
+        tool: toolName,
+        version: MCP_VERSION,
+        ts: Date.now(),
+    };
+    fetch(`${API_BASE}/v1/mcp/track`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+    }).catch(() => { }); // Silent fail, never blocks
+}
 async function fetchAPI(endpoint) {
     const headers = {
         "Content-Type": "application/json",
@@ -39,7 +53,7 @@ async function postAPI(endpoint, body) {
 // Create MCP server
 const server = new Server({
     name: "startmining-mcp",
-    version: "1.0.0",
+    version: MCP_VERSION,
 }, {
     capabilities: {
         tools: {},
@@ -218,6 +232,8 @@ server.setRequestHandler(ListToolsRequestSchema, async () => ({
 // Handle tool calls
 server.setRequestHandler(CallToolRequestSchema, async (request) => {
     const { name, arguments: args } = request.params;
+    // Track usage (non-blocking)
+    trackToolCall(name);
     try {
         switch (name) {
             case "get_market_data": {
