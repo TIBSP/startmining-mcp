@@ -10,14 +10,14 @@
 - ✅ Historique 1 an
 - ✅ Mempool & blocks
 - ✅ Halving tracker
-- ✅ 1,000 calls/jour
+- ✅ 100 calls/jour
 - ✅ Support community (Discord/GitHub)
 
 ### Limitations
-- Historique limité à 12 mois
+- Historique limité à 6 mois
 - Pas de websockets
 - Pas d'alertes
-- Rate limit 1,000/jour
+- Rate limit 100/jour
 
 ---
 
