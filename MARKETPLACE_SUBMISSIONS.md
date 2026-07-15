@@ -94,24 +94,29 @@ Bitcoin mining data and profitability calculations. Real-time hashprice, difficu
 
 ---
 
-## Status
+## Status (mis à jour 2026-07-15)
 
 | Platform | Status | Action Required |
 |----------|--------|-----------------|
-| npm | ✅ Published v1.0.3 | Done |
-| GitHub | ✅ Created | https://github.com/TIBSP/startmining-mcp |
-| GitHub Topics | ✅ Added | mcp, bitcoin, bitcoin-mining, etc. |
-| mcp.so | ⏳ Needs login | Thibaut to submit manually |
-| Smithery | ⏳ Needs login | Thibaut to submit manually |
-| Awesome MCP Servers | ✅ PR submitted | https://github.com/punkpeye/awesome-mcp-servers/pull/1789 |
+| npm | ✅ v1.0.4 publiée ; v1.0.5 prête (ajout `mcpName`) | `npm publish` (login Thibaut) |
+| GitHub | ✅ https://github.com/TIBSP/startmining-mcp | — |
+| **MCP Registry officiel** | 🔴 Pas listé — `server.json` prêt dans le repo | `mcp-publisher login github` puis `mcp-publisher publish` (après npm publish) |
+| Glama | 🔴 Pas listé — Dockerfile + glama.json + release prêts | Soumettre https://github.com/TIBSP/startmining-mcp sur https://glama.ai/mcp/servers (login) |
+| Awesome MCP Servers | ❌ PR #1789 fermée (inactivité). Exigences : listing Glama d'abord + badge glama dans l'entrée + pas de lien site dans la description | Re-PR après Glama (CC peut la faire via gh) |
+| mcp.so | ⏳ Needs login | Thibaut (textes §2 ci-dessus) |
+| Smithery | ⏳ Needs login | Thibaut (textes §3 ci-dessus) |
+| PulseMCP & co | — | Synchronisent depuis le registry officiel → couverts par la ligne 3 |
 | Anthropic Official | ⏳ Later | After traction |
 
 ---
 
-## Next Steps
+## Runbook 2026-07-15 (ordre exact)
 
-1. **Create GitHub repo** `TIBSP/startmining-mcp` (needs Thibaut)
-2. Push code + add topics
-3. Submit to mcp.so
-4. Submit to Smithery
-5. PR to awesome-mcp-servers
+1. **Thibaut** : `cd E:\startmining-mcp && npm login && npm publish` (publie v1.0.5 avec le champ `mcpName` requis par le registry).
+2. **Thibaut** : `mcp-publisher login github` (device flow) puis `mcp-publisher publish` depuis `E:\startmining-mcp` (installe via `brew`/binaire GitHub releases `modelcontextprotocol/registry` si absent).
+3. **Thibaut** : soumettre le repo sur https://glama.ai/mcp/servers (l'image Docker et la release v1.0.5 sont les checks qu'ils exécutent).
+4. **CC** : une fois l'URL Glama live (`https://glama.ai/mcp/servers/TIBSP/startmining-mcp`), re-PR awesome-mcp-servers, section Finance & Fintech, format :
+   ```markdown
+   - [TIBSP/startmining-mcp](https://github.com/TIBSP/startmining-mcp) [![TIBSP/startmining-mcp MCP server](https://glama.ai/mcp/servers/TIBSP/startmining-mcp/badges/score.svg)](https://glama.ai/mcp/servers/TIBSP/startmining-mcp) 📇 ☁️ - Bitcoin mining data from a self-hosted Bitcoin Core node: hashprice, difficulty, halving countdown, mempool, ASIC profitability and breakeven calculators, historical series since 2009. 11 tools, no API key.
+   ```
+5. **Thibaut** (optionnel, 2 min chacun) : mcp.so + Smithery avec les textes des §2-3.
