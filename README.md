@@ -1,4 +1,4 @@
-# startmining-mcp
+# @startmining/mcp
 
 MCP (Model Context Protocol) server for Bitcoin mining data. Get real-time hashprice, difficulty, profitability calculations, and more.
 
@@ -14,13 +14,13 @@ MCP (Model Context Protocol) server for Bitcoin mining data. Get real-time hashp
 ## 📦 Installation
 
 ```bash
-npm install -g startmining-mcp
+npm install -g @startmining/mcp
 ```
 
 Or use directly with npx:
 
 ```bash
-npx startmining-mcp
+npx @startmining/mcp
 ```
 
 ## ⚙️ Configuration
@@ -34,7 +34,7 @@ Add to your `claude_desktop_config.json`:
   "mcpServers": {
     "startmining": {
       "command": "npx",
-      "args": ["startmining-mcp"]
+      "args": ["@startmining/mcp"]
     }
   }
 }
@@ -47,7 +47,7 @@ Add to your `claude_desktop_config.json`:
   "mcpServers": {
     "startmining": {
       "command": "npx",
-      "args": ["startmining-mcp"],
+      "args": ["@startmining/mcp"],
       "env": {
         "STARTMINING_API_KEY": "your_api_key"
       }

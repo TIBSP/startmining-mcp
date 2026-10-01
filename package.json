@@ -1,9 +1,12 @@
 {
-  "name": "startmining-mcp",
+  "name": "@startmining/mcp",
   "mcpName": "io.github.tibsp/startmining-mcp",
   "version": "1.1.0",
   "description": "MCP server for Bitcoin mining data - hashprice, difficulty, profitability calculations",
   "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
   "bin": {
     "startmining-mcp": "./dist/index.js"
   },
@@ -28,6 +31,9 @@
     "url": "https://startmining.io"
   },
   "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
   "homepage": "https://pro.startmining.io",
   "repository": {
     "type": "git",
