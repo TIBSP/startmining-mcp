@@ -7,14 +7,14 @@
     "url": "https://github.com/TIBSP/startmining-mcp",
     "source": "github"
   },
-  "version": "1.0.5",
+  "version": "1.1.0",
   "websiteUrl": "https://pro.startmining.io",
   "packages": [
     {
       "registryType": "npm",
       "registryBaseUrl": "https://registry.npmjs.org",
-      "identifier": "startmining-mcp",
-      "version": "1.0.5",
+      "identifier": "@startminingmcp/mcp",
+      "version": "1.1.0",
       "runtimeHint": "npx",
       "transport": {
         "type": "stdio"
