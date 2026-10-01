@@ -11,7 +11,7 @@ const API_BASE = process.env.STARTMINING_API_URL || "https://mining-api.startmin
 // Default public API key for MCP (rate limited, read-only)
 const DEFAULT_PUBLIC_KEY = "sm_mcp_public_2026_xKj8mNpL4qRsT9wV2yHz";
 const API_KEY = process.env.STARTMINING_API_KEY || DEFAULT_PUBLIC_KEY;
-const MCP_VERSION = "1.1.1";
+const MCP_VERSION = "1.1.2";
 
 // Analytics tracking (fire-and-forget, non-blocking)
 function trackToolCall(toolName: string): void {
