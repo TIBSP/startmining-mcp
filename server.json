@@ -1,20 +1,20 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
-  "name": "io.github.tibsp/startmining-mcp",
+  "name": "io.github.TIBSP/startmining-mcp",
   "title": "Startmining Bitcoin Mining Data",
-  "description": "Real-time Bitcoin mining data from a self-hosted Bitcoin Core node: hashprice, difficulty, halving countdown, mempool, ASIC profitability and breakeven calculators, historical series since 2009. 11 tools.",
+  "description": "Bitcoin mining data from a self-hosted node: hashprice, profitability, monthly averages, history",
   "repository": {
     "url": "https://github.com/TIBSP/startmining-mcp",
     "source": "github"
   },
-  "version": "1.1.0",
+  "version": "1.1.1",
   "websiteUrl": "https://pro.startmining.io",
   "packages": [
     {
       "registryType": "npm",
       "registryBaseUrl": "https://registry.npmjs.org",
       "identifier": "@startminingmcp/mcp",
-      "version": "1.1.0",
+      "version": "1.1.1",
       "runtimeHint": "npx",
       "transport": {
         "type": "stdio"

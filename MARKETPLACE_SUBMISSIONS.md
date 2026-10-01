@@ -1,4 +1,6 @@
-# Marketplace Submissions for startmining-mcp
+# Marketplace Submissions for @startminingmcp/mcp
+
+> 2026-10-01 : le package npm est `@startminingmcp/mcp` (compte `startminingmcp`). L'ancien `startmining-mcp` (compte `startminingio`, acces perdu) est fige en 1.0.4 : ne JAMAIS le soumettre.
 
 ## 1. GitHub Topics (à ajouter au repo)
 
@@ -14,7 +16,7 @@ mcp, model-context-protocol, bitcoin, bitcoin-mining, cryptocurrency, hashprice,
 
 **Listing Info:**
 - **Name**: Startmining MCP Server
-- **Package**: `startmining-mcp`
+- **Package**: `@startminingmcp/mcp`
 - **Category**: Finance / Cryptocurrency
 - **Description**: 
 
@@ -30,7 +32,7 @@ mcp, model-context-protocol, bitcoin, bitcoin-mining, cryptocurrency, hashprice,
 
 **Install:**
 ```bash
-npx startmining-mcp
+npx -y @startminingmcp/mcp
 ```
 
 ---
@@ -40,7 +42,7 @@ npx startmining-mcp
 **URL**: https://smithery.ai/submit
 
 **Listing:**
-- **Name**: startmining-mcp
+- **Name**: @startminingmcp/mcp
 - **One-liner**: Bitcoin mining data & profitability calculations for AI
 - **Category**: Cryptocurrency / Finance
 - **Author**: Startmining
@@ -49,13 +51,14 @@ npx startmining-mcp
 **Description:**
 > Professional Bitcoin mining data server. Query real-time hashprice, calculate ASIC profitability, track difficulty adjustments, and access historical data back to 2009. Built by Startmining, operating mining infrastructure across Europe.
 
-**Tools (11):**
+**Tools (12):**
 1. `get_market_data` - BTC price, hashprice, difficulty, network stats
 2. `get_hashprice` - Detailed hashprice breakdown
 3. `get_difficulty` - Current + next adjustment prediction
 4. `get_halving_info` - Era, next date, supply stats
 5. `get_price_history` - Historical BTC prices
 6. `get_difficulty_history` - Historical difficulty & hashrate
+6b. `get_monthly_averages` - Calendar-month averages of BTC price, hashrate, hashprice USD & BTC
 7. `calculate_profitability` - Mining ROI calculator
 8. `calculate_breakeven` - Breakeven BTC price
 9. `get_mempool` - Fees and mempool status
@@ -88,7 +91,7 @@ npx startmining-mcp
 ```markdown
 ### Startmining MCP
 Bitcoin mining data and profitability calculations. Real-time hashprice, difficulty, network stats, and ASIC ROI calculator.
-- npm: `startmining-mcp`
+- npm: `@startminingmcp/mcp`
 - GitHub: https://github.com/TIBSP/startmining-mcp
 ```
 
@@ -117,6 +120,6 @@ Bitcoin mining data and profitability calculations. Real-time hashprice, difficu
 3. **Thibaut** : soumettre le repo sur https://glama.ai/mcp/servers (l'image Docker et la release v1.0.5 sont les checks qu'ils exécutent).
 4. **CC** : une fois l'URL Glama live (`https://glama.ai/mcp/servers/TIBSP/startmining-mcp`), re-PR awesome-mcp-servers, section Finance & Fintech, format :
    ```markdown
-   - [TIBSP/startmining-mcp](https://github.com/TIBSP/startmining-mcp) [![TIBSP/startmining-mcp MCP server](https://glama.ai/mcp/servers/TIBSP/startmining-mcp/badges/score.svg)](https://glama.ai/mcp/servers/TIBSP/startmining-mcp) 📇 ☁️ - Bitcoin mining data from a self-hosted Bitcoin Core node: hashprice, difficulty, halving countdown, mempool, ASIC profitability and breakeven calculators, historical series since 2009. 11 tools, no API key.
+   - [TIBSP/startmining-mcp](https://github.com/TIBSP/startmining-mcp) [![TIBSP/startmining-mcp MCP server](https://glama.ai/mcp/servers/TIBSP/startmining-mcp/badges/score.svg)](https://glama.ai/mcp/servers/TIBSP/startmining-mcp) 📇 ☁️ - Bitcoin mining data from a self-hosted Bitcoin Core node: hashprice, difficulty, halving countdown, mempool, ASIC profitability and breakeven calculators, calendar-month averages, historical series since 2009. 12 tools, no API key.
    ```
 5. **Thibaut** (optionnel, 2 min chacun) : mcp.so + Smithery avec les textes des §2-3.
