@@ -5,12 +5,13 @@ import {
   CallToolRequestSchema,
   ListToolsRequestSchema,
 } from "@modelcontextprotocol/sdk/types.js";
+import { computeMonthlyAverages, monthRange, type HashpriceHistoryPoint } from "./monthly.js";
 
 const API_BASE = process.env.STARTMINING_API_URL || "https://mining-api.startmining.io";
 // Default public API key for MCP (rate limited, read-only)
 const DEFAULT_PUBLIC_KEY = "sm_mcp_public_2026_xKj8mNpL4qRsT9wV2yHz";
 const API_KEY = process.env.STARTMINING_API_KEY || DEFAULT_PUBLIC_KEY;
-const MCP_VERSION = "1.0.4";
+const MCP_VERSION = "1.1.0";
 
 // Analytics tracking (fire-and-forget, non-blocking)
 function trackToolCall(toolName: string): void {
@@ -259,6 +260,20 @@ server.setRequestHandler(ListToolsRequestSchema, async () => ({
       },
     },
     {
+      name: "get_monthly_averages",
+      description: "Get calendar-month averages (UTC) of BTC price, network hashrate, and hashprice in USD and BTC, for monthly mining reports. The month must be complete.",
+      inputSchema: {
+        type: "object",
+        properties: {
+          month: {
+            type: "string",
+            description: "Calendar month (YYYY-MM), e.g. 2026-09 for 1-30 September 2026",
+          },
+        },
+        required: ["month"],
+      },
+    },
+    {
       name: "get_asic_prices",
       description: "Get ASIC miner price data and efficiency stats",
       inputSchema: {
@@ -373,6 +388,18 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
         const data = await fetchAPI(`/network/blocks?limit=${limit}`);
         return {
           content: [{ type: "text", text: JSON.stringify(data, null, 2) }],
+        };
+      }
+
+      case "get_monthly_averages": {
+        const month = String(args?.month ?? "");
+        const { from, to } = monthRange(month);
+        const data = await fetchAPI<{ history: HashpriceHistoryPoint[] }>(
+          `/calculator/hashprice/history?from=${from}&to=${to}`
+        );
+        const averages = computeMonthlyAverages(month, data.history);
+        return {
+          content: [{ type: "text", text: JSON.stringify(averages, null, 2) }],
         };
       }
 

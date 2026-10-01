@@ -1,4 +1,4 @@
-# @startmining/mcp-server
+# startmining-mcp
 
 MCP (Model Context Protocol) server for Bitcoin mining data. Get real-time hashprice, difficulty, profitability calculations, and more.
 
@@ -14,13 +14,13 @@ MCP (Model Context Protocol) server for Bitcoin mining data. Get real-time hashp
 ## 📦 Installation
 
 ```bash
-npm install -g @startmining/mcp-server
+npm install -g startmining-mcp
 ```
 
 Or use directly with npx:
 
 ```bash
-npx @startmining/mcp-server
+npx startmining-mcp
 ```
 
 ## ⚙️ Configuration
@@ -34,7 +34,7 @@ Add to your `claude_desktop_config.json`:
   "mcpServers": {
     "startmining": {
       "command": "npx",
-      "args": ["@startmining/mcp-server"]
+      "args": ["startmining-mcp"]
     }
   }
 }
@@ -47,7 +47,7 @@ Add to your `claude_desktop_config.json`:
   "mcpServers": {
     "startmining": {
       "command": "npx",
-      "args": ["@startmining/mcp-server"],
+      "args": ["startmining-mcp"],
       "env": {
         "STARTMINING_API_KEY": "your_api_key"
       }
@@ -66,6 +66,7 @@ Add to your `claude_desktop_config.json`:
 | `get_halving_info` | Halving era, next date, supply stats |
 | `get_price_history` | Historical BTC prices (from, to, granularity) |
 | `get_difficulty_history` | Historical difficulty & hashrate |
+| `get_monthly_averages` | Calendar-month averages (UTC) of BTC price, hashrate, hashprice USD & BTC (month: YYYY-MM) |
 | `calculate_profitability` | Mining profitability for given setup |
 | `calculate_breakeven` | Breakeven BTC price |
 | `get_mempool` | Mempool status & fee estimates |
@@ -81,6 +82,7 @@ Once configured, you can ask Claude:
 - "When is the next halving?"
 - "Show me BTC price history for last month"
 - "What's the mempool fee situation?"
+- "Give me the September 2026 monthly averages for price, hashrate and hashprice"
 
 ## 📊 Data Sources
 
