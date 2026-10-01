@@ -115,8 +115,8 @@ server.setRequestHandler(ListToolsRequestSchema, async () => ({
                     },
                     granularity: {
                         type: "string",
-                        enum: ["daily", "weekly", "monthly"],
-                        description: "Data granularity (default: daily)",
+                        enum: ["day", "hour"],
+                        description: "Data granularity (default: day). For calendar-month averages use get_monthly_averages",
                     },
                 },
                 required: [],
