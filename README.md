@@ -67,10 +67,11 @@ Add to your `claude_desktop_config.json`:
 | `get_price_history` | Historical BTC prices (from, to, granularity) |
 | `get_difficulty_history` | Historical difficulty & hashrate |
 | `get_monthly_averages` | Calendar-month averages (UTC) of BTC price, hashrate, hashprice USD & BTC (month: YYYY-MM) |
+| `get_weekly_stats` | Closed ISO-week stats (UTC): block time, real fees, implied hashrate, real hashprice BTC & USD, difficulty adjustments, daily rows (default: last 2 weeks) |
 | `calculate_profitability` | Mining profitability for given setup |
 | `calculate_breakeven` | Breakeven BTC price |
 | `get_mempool` | Mempool status & fee estimates |
-| `get_recent_blocks` | Recent blocks info |
+| `get_recent_blocks` | Recent blocks info (max 50) |
 | `get_asic_prices` | ASIC market prices by efficiency |
 
 ## 💡 Example Queries
@@ -83,6 +84,7 @@ Once configured, you can ask Claude:
 - "Show me BTC price history for last month"
 - "What's the mempool fee situation?"
 - "Give me the September 2026 monthly averages for price, hashrate and hashprice"
+- "Compare the last two closed weeks: block time, fees and hashprice"
 
 ## 📊 Data Sources
 

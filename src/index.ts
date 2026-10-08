@@ -6,12 +6,13 @@ import {
   ListToolsRequestSchema,
 } from "@modelcontextprotocol/sdk/types.js";
 import { computeMonthlyAverages, monthRange, type HashpriceHistoryPoint } from "./monthly.js";
+import { weekStarts } from "./weekly.js";
 
 const API_BASE = process.env.STARTMINING_API_URL || "https://mining-api.startmining.io";
 // Default public API key for MCP (rate limited, read-only)
 const DEFAULT_PUBLIC_KEY = "sm_mcp_public_2026_xKj8mNpL4qRsT9wV2yHz";
 const API_KEY = process.env.STARTMINING_API_KEY || DEFAULT_PUBLIC_KEY;
-const MCP_VERSION = "1.1.2";
+const MCP_VERSION = "1.2.0";
 
 // Analytics tracking (fire-and-forget, non-blocking)
 function trackToolCall(toolName: string): void {
@@ -63,7 +64,9 @@ async function fetchAPI<T>(endpoint: string): Promise<T> {
   
   const response = await fetch(`${API_BASE}${endpoint}`, { headers });
   if (!response.ok) {
-    throw new Error(`API error: ${response.status} ${response.statusText}`);
+    // Surface the API's own message (e.g. 422 "week not closed yet")
+    const body = await response.json().catch(() => null) as { error?: string } | null;
+    throw new Error(`API error: ${response.status} ${body?.error ?? response.statusText}`);
   }
   return response.json();
 }
@@ -247,13 +250,13 @@ server.setRequestHandler(ListToolsRequestSchema, async () => ({
     },
     {
       name: "get_recent_blocks",
-      description: "Get recent Bitcoin blocks",
+      description: "Get the most recent Bitcoin blocks (max 50, i.e. a few hours). For weekly block time, fees or hashprice use get_weekly_stats",
       inputSchema: {
         type: "object",
         properties: {
           limit: {
             type: "number",
-            description: "Number of blocks to return (default: 10)",
+            description: "Number of blocks to return (default: 10, max: 50)",
           },
         },
         required: [],
@@ -271,6 +274,24 @@ server.setRequestHandler(ListToolsRequestSchema, async () => ({
           },
         },
         required: ["month"],
+      },
+    },
+    {
+      name: "get_weekly_stats",
+      description: "Get closed ISO-week (Monday 00:00 UTC to Monday 00:00 UTC) Bitcoin network stats for weekly mining reports: block count and average block time, real transaction fees, implied hashrate, real hashprice in BTC and USD, difficulty adjustments with timestamps, BTC price, raw daily rows, methodology and coverage. Defaults to the last 2 closed weeks.",
+      inputSchema: {
+        type: "object",
+        properties: {
+          week: {
+            type: "string",
+            description: "Any day (YYYY-MM-DD) of the most recent week wanted. Default: last fully closed week",
+          },
+          weeks: {
+            type: "number",
+            description: "Number of consecutive weeks ending with `week`, oldest first (default: 2, max: 8)",
+          },
+        },
+        required: [],
       },
     },
     {
@@ -400,6 +421,18 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
         const averages = computeMonthlyAverages(month, data.history);
         return {
           content: [{ type: "text", text: JSON.stringify(averages, null, 2) }],
+        };
+      }
+
+      case "get_weekly_stats": {
+        const week = args?.week ? String(args.week) : undefined;
+        const weeks = args?.weeks === undefined ? 2 : Number(args.weeks);
+        const results = [];
+        for (const monday of weekStarts(week, weeks)) {
+          results.push(await fetchAPI(`/network/weekly?week=${monday}`));
+        }
+        return {
+          content: [{ type: "text", text: JSON.stringify({ weeks: results }, null, 2) }],
         };
       }
 
