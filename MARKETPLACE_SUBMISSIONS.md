@@ -97,13 +97,13 @@ Bitcoin mining data and profitability calculations. Real-time hashprice, difficu
 
 ---
 
-## Status (mis à jour 2026-10-01)
+## Status (mis à jour 2026-10-08)
 
 | Platform | Status | Action Required |
 |----------|--------|-----------------|
-| npm | ✅ `@startminingmcp/mcp` 1.1.2 (compte `startminingmcp`) | — |
+| npm | ✅ `@startminingmcp/mcp` 1.2.0 (compte `startminingmcp`, publié le 2026-10-08) | — |
 | GitHub | ✅ https://github.com/TIBSP/startmining-mcp | — |
-| **MCP Registry officiel** | ✅ `io.github.TIBSP/startmining-mcp` 1.1.2 publié le 2026-10-01 | — |
+| **MCP Registry officiel** | ✅ `io.github.TIBSP/startmining-mcp` 1.2.0 publié le 2026-10-08 (`mcp-publisher login github --token "$(gh auth token)"` : évite le device flow) | — |
 | Glama | ⏳ Soumis le 2026-10-01 (compte GitHub TIBSP), en revue | Suivre l'email Glama |
 | Awesome MCP Servers | ❌ PR #1789 fermée (inactivité). Exigences : listing Glama d'abord + badge glama dans l'entrée + pas de lien site dans la description | Re-PR après Glama (CC peut la faire via gh) |
 | mcp.so | ⏳ Needs login | Thibaut (textes §2 ci-dessus) |
