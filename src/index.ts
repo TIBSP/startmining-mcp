@@ -14,7 +14,7 @@ const API_BASE = process.env.STARTMINING_API_URL || "https://mining-api.startmin
 // Default public API key for MCP (rate limited, read-only)
 const DEFAULT_PUBLIC_KEY = "sm_mcp_public_2026_xKj8mNpL4qRsT9wV2yHz";
 const API_KEY = process.env.STARTMINING_API_KEY || DEFAULT_PUBLIC_KEY;
-const MCP_VERSION = "1.2.0";
+const MCP_VERSION = "1.2.1";
 // Fail fast instead of hanging until the MCP client times out
 const API_TIMEOUT_MS = 30_000;
 

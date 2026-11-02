@@ -1,7 +1,7 @@
 {
   "name": "@startminingmcp/mcp",
   "mcpName": "io.github.TIBSP/startmining-mcp",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "MCP server for Bitcoin mining data - hashprice, difficulty, profitability calculations",
   "main": "dist/index.js",
   "files": [
