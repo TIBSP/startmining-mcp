@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 import { Server } from "@modelcontextprotocol/sdk/server/index.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
+import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
+import { createServer as createHttpServer } from "node:http";
 import {
   CallToolRequestSchema,
   ListToolsRequestSchema,
@@ -13,6 +15,8 @@ const API_BASE = process.env.STARTMINING_API_URL || "https://mining-api.startmin
 const DEFAULT_PUBLIC_KEY = "sm_mcp_public_2026_xKj8mNpL4qRsT9wV2yHz";
 const API_KEY = process.env.STARTMINING_API_KEY || DEFAULT_PUBLIC_KEY;
 const MCP_VERSION = "1.2.0";
+// Fail fast instead of hanging until the MCP client times out
+const API_TIMEOUT_MS = 30_000;
 
 // Analytics tracking (fire-and-forget, non-blocking)
 function trackToolCall(toolName: string): void {
@@ -62,7 +66,10 @@ async function fetchAPI<T>(endpoint: string): Promise<T> {
     headers["X-API-Key"] = API_KEY;
   }
   
-  const response = await fetch(`${API_BASE}${endpoint}`, { headers });
+  const response = await fetch(`${API_BASE}${endpoint}`, {
+    headers,
+    signal: AbortSignal.timeout(API_TIMEOUT_MS),
+  });
   if (!response.ok) {
     // Surface the API's own message (e.g. 422 "week not closed yet")
     const body = await response.json().catch(() => null) as { error?: string } | null;
@@ -83,6 +90,7 @@ async function postAPI<T>(endpoint: string, body: object): Promise<T> {
     method: "POST",
     headers,
     body: JSON.stringify(body),
+    signal: AbortSignal.timeout(API_TIMEOUT_MS),
   });
   if (!response.ok) {
     throw new Error(`API error: ${response.status} ${response.statusText}`);
@@ -90,7 +98,8 @@ async function postAPI<T>(endpoint: string, body: object): Promise<T> {
   return response.json();
 }
 
-// Create MCP server
+// Create MCP server — factory: one instance per stdio session or per HTTP request
+export function buildServer(): Server {
 const server = new Server(
   {
     name: "startmining-mcp",
@@ -455,10 +464,76 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
   }
 });
 
+  return server;
+}
+
+// Remote mode (ChatGPT connectors, Codex, Claude.ai...): stateless Streamable HTTP on POST /mcp
+async function startHttp(port: number, host: string) {
+  const httpServer = createHttpServer(async (req, res) => {
+    const url = new URL(req.url || "/", "http://localhost");
+    if (url.pathname === "/health") {
+      res.writeHead(200, { "Content-Type": "application/json" }).end('{"ok":true}');
+      return;
+    }
+    if (url.pathname !== "/mcp") {
+      res.writeHead(404).end();
+      return;
+    }
+    if (req.method !== "POST") {
+      // Stateless server: no SSE stream (GET) and no session to delete (DELETE)
+      res.writeHead(405, { Allow: "POST", "Content-Type": "application/json" }).end(
+        JSON.stringify({ jsonrpc: "2.0", error: { code: -32000, message: "Method not allowed." }, id: null })
+      );
+      return;
+    }
+    let raw = "";
+    for await (const chunk of req) {
+      raw += chunk;
+      if (raw.length > 1_000_000) {
+        res.writeHead(413).end();
+        return;
+      }
+    }
+    let body: unknown;
+    try {
+      body = JSON.parse(raw);
+    } catch {
+      res.writeHead(400, { "Content-Type": "application/json" }).end(
+        JSON.stringify({ jsonrpc: "2.0", error: { code: -32700, message: "Parse error" }, id: null })
+      );
+      return;
+    }
+    const server = buildServer();
+    const transport = new StreamableHTTPServerTransport({
+      sessionIdGenerator: undefined,
+      enableJsonResponse: true,
+    });
+    res.on("close", () => {
+      transport.close().catch(() => {});
+      server.close().catch(() => {});
+    });
+    try {
+      await server.connect(transport);
+      await transport.handleRequest(req, res, body);
+    } catch (error) {
+      console.error("MCP HTTP request failed:", error);
+      if (!res.headersSent) res.writeHead(500).end();
+    }
+  });
+  httpServer.listen(port, host, () => {
+    console.error(`Startmining MCP server running on http://${host}:${port}/mcp`);
+  });
+}
+
 // Start server
 async function main() {
+  const httpPort = process.env.MCP_HTTP_PORT;
+  if (httpPort) {
+    await startHttp(parseInt(httpPort, 10), process.env.MCP_HTTP_HOST || "127.0.0.1");
+    return;
+  }
   const transport = new StdioServerTransport();
-  await server.connect(transport);
+  await buildServer().connect(transport);
   console.error("Startmining MCP server running on stdio");
 }
 
